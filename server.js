@@ -71,50 +71,6 @@ const server = http.createServer(async function (req, res) {
 });
 
 // Прослуховування порту 3000
-server.listen(3000, '127.0.0.1', function () {
-    console.log('Веб-сервер запущено на http://127.0.0.1:3000/');
+server.listen(3000, '46.254.107.11', function () {
+    console.log('Веб-сервер запущено на http://46.254.107.11:3000/');
 });
-
-
-// Функція для запису даних з таблиці в файл
-function writeToHTMLFile(results) {
-    const htmlContent = `
-        <!DOCTYPE html>
-        <html lang="en">
-        <head>
-            <meta charset="UTF-8">
-            <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <title>Ping Table</title>
-            <style>
-                /* Вставте стилі для таблиці тут */
-            </style>
-        </head>
-        <body>
-            <h1>Ping Table</h1>
-            <table border="1">
-                <tr>
-                    <th>IP-адреса</th>
-                    <th>Статус</th>
-                </tr>
-                ${results.map(({ ip, status }) => `
-                    <tr>
-                        <td>${ip}</td>
-                        <td>${status ? "Online" : "Offline"}</td>
-                    </tr>
-                `).join('')}
-            </table>
-        </body>
-        </html>
-    `;
-
-    // Записати згенерований Json-контент у файл
-    fs.writeFileSync('ping.json', htmlContent, 'utf8', function(err) {
-        if (err) {
-            console.error('Помилка при записі в файл:', err);
-        } else {
-            console.log('Файл ping.html успішно оновлено.');
-        }
-    });
-};
-// Викликати функцію для запису даних у файл
-writeToHTMLFile(results);
