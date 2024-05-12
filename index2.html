@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>death</title>
+</head>
+<body>
+    <div class="left-container">
+      <!-- Лівий контейнер -->
+    </div>
+    <div class="container"></div>
+    <header>
+        <h1>death.obey</h1>
+        <!-- Навігація -->
+        <nav id="navMenu">
+            <!-- JavaScript створить тут елементи навігації -->
+        </nav>
+    </header>
+    <!-- Зміст сторінки -->
+    <div id="content">
+        <!-- Тут буде ваш контент -->
+    </div>
+
+    <script>
+        // Створення заголовка і навігаційного меню за допомогою JavaScript
+        document.addEventListener('DOMContentLoaded', function() {
+            // Створення навігаційного меню
+            const navMenu = document.getElementById('navMenu');
+            const pages = ['Головна', 'Про нас', 'Стандарт'];
+            pages.forEach(page => {
+                const link = document.createElement('a');
+                link.href = `#${page.toLowerCase().replace(' ', '-')}`; // Генеруємо посилання з назвою сторінки
+                link.textContent = page;
+                navMenu.appendChild(link);
+            });
+        });
+    </script> 
+
+    <div class="container2">
+        <h2>Оберіть департамент та відділ:</h2>
+        <form>
+            <label for="department">Департамент:</label>
+            <select id="department" onchange="populateDivisions()">
+                <option value="">Оберіть департамент</option>
+                <option value="D1 - Департамент по роботі з персоналом">D1</option>
+                <option value="D2A">D2A</option>
+                <option value="D2B">D2B</option>
+            </select>
+            <label for="division">Відділ:</label>
+            <select id="division" onchange="showPassport()">
+                <option value="">Оберіть відділ</option>
+            </select>
+        </form>
+        <div id="passport" class="passport"></div>
+    </div>
+    <!-- Футер -->
+    <footer>
+      <p>&copy; 2024 deadspace.site. Усі права захищені.</p>
+    </footer>
+    <div class="right-container">
+      <!-- Правий контейнер -->
+    </div>
+  </div>
+  <script>
+  function scrollToTop() {
+    window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+    });
+}
+
+function scrollToBottom() {
+    window.scrollTo({
+        top: document.body.scrollHeight,
+        behavior: 'smooth'
+    });
+}
+</script>
+    <script>
+        const passports = {
+            "D1 - Департамент по роботі з персоналом": {
+                "Департамент по роботі з персоналом": {
+                    
+                    "name": "Департамент по роботі з персоналом",
+                    "image_display": "",
+                    "diagonal": "15.6",
+                    "resolution": "1920x1080 (FullHD)",
+                    "surface": "Матова",
+                    "matrixType": "IPS",
+                    "refreshRate": "60Hz",
+                    
+                    "processor": "",
+                    "generationAMD": "AMD Zen 3 (4-е покоління)",
+                    "generationINTEL": "Intel Core i3-12XXXX",
+                    "modelAMD": "AMD Ryzen 5 5625U (2.3 - 4.3 GHz)",
+                    "modelIntel": "Intel Core 12g (3.3-4.4 ГГц)",
+                    "cores": 6,
+                    "ram": "",
+                    "type": "DDR4",
+                    "slots": 2,
+                    "size": "8 / 16 ГБ",
+                    
+                    "storage": "",
+                    "driveType": "SSD",
+                    "capacity": "256 / 512 ГБ",
+                    "opticalDrive": "No ODD",
+                    "graphicsCard": "AMD Radeon Graphics",
+                    
+                    "multimedia": "",
+                    "webcam": "WEB-Camera",
+                    "additionalFeatures": "стереодинаміки, вбудований мікрофон",
+
+                    "communication": "",
+                    "wireless": "Bluetooth, Wi-Fi ghz",
+                    "networkAdapter": "Gigabit Ethernet",
+                    "port-1": "2 х USB 3.2",
+                    "port-2": "USB 3.2 Type-C",
+                    "port-3": "LAN (RJ-45)",
+                    "port-4": "HDMI",
+                    "port-5": "Комбінований аудіороз'єм",
+                    "software": "Операційна система DOS",
+                    "batteryCapacity": "3 cell",
+
+                    "physicalCharacteristics": "",
+                    "width": "358 мм",
+                    "height": "19.9 мм",
+                    "depth": "242 мм",
+                    "weight": "1.74 кг"
+                }
+            },
+            "D2A": {
+                "Development": {
+                    "name": "Development",
+                    "location": "Kyiv",
+                    "employees": 30,
+                    "manager": "Alex Johnson"
+                },
+                "QA": {
+                    "name": "QA",
+                    "location": "Kharkiv",
+                    "employees": 25,
+                    "manager": "Michael Brown"
+                }
+            },
+            "D2B": {
+                "Accounting": {
+                    "name": "Accounting",
+                    "location": "Kyiv",
+                    "employees": 10,
+                    "manager": "Emily Wilson"
+                },
+                "Audit": {
+                    "name": "Audit",
+                    "location": "Lviv",
+                    "employees": 12,
+                    "manager": "David Garcia"
+                }
+            }
+        };
+
+        function populateDivisions() {
+            let departmentSelect = document.getElementById("department");
+            let divisionSelect = document.getElementById("division");
+            let selectedDepartment = departmentSelect.value;
+            divisionSelect.innerHTML = "<option value=''>Оберіть відділ</option>";
+
+            if (selectedDepartment) {
+                let divisions = Object.keys(passports[selectedDepartment]);
+                divisions.forEach(function(division) {
+                    let option = document.createElement("option");
+                    option.text = passports[selectedDepartment][division].name;
+                    divisionSelect.add(option);
+                });
+            }
+        }; 
+
+        function showPassport() {
+            let departmentSelect = document.getElementById("department");
+            let divisionSelect = document.getElementById("division");
+            let selectedDepartment = departmentSelect.value;
+            let selectedDivision = divisionSelect.value;
+            let passportDiv = document.getElementById("passport");
+
+            if (selectedDepartment && selectedDivision) {
+                let passport = passports[selectedDepartment][selectedDivision];
+                passportDiv.innerHTML = `
+                <h2>Паспорт для Основного Засобу</h2>
+                
+                <li><strong>Екран:</strong> ${passport.image_display}</li>
+                <p><strong>Розмір дисплея:</strong> ${passport.diagonal} дюймів</p>
+                <p><strong>Роздільна здатність:</strong> ${passport.resolution}</p>
+                <p><strong>Поверхня дисплея:</strong> ${passport.surface}</p>
+                <p><strong>Тип матриці:</strong> ${passport.matrixType}</p>
+                <p><strong>Частота оновлення:</strong> ${passport.refreshRate}</p>
+
+                <li><strong>Процесор:</strong> ${passport.processor}</li>
+                <p><strong>Покоління AMD:</strong> ${passport.generationAMD}</p>
+                <p><strong>Покоління Intel:</strong> ${passport.generationINTEL}</p>
+                <p><strong>Модель AMD:</strong> ${passport.modelAMD}</p>
+                <p><strong>Модель Intel:</strong> ${passport.modelIntel}</p>
+                <p><strong>Кількість ядер:</strong> ${passport.cores}</p>
+
+                <li><strong>Оперативна пам'ять:</strong> ${passport.ram}</li>
+                <p><strong>Тип:</strong>${passport.type}</p> 
+                <p><strong>Слоти:</strong>${passport.slots}</p> 
+                <p><strong>Розмір:</strong>${passport.size}</p>
+
+                <li><strong>Накопичувач:</strong> ${passport.storage}</li>
+                <p><strong>Тип диска:</strong> ${passport.driveType}</p>
+                <p><strong>Об'єм:</strong> ${passport.capacity}</p>
+                <p><strong>Оптичний привід:</strong> ${passport.opticalDrive}</p>
+                <p><strong>Відеокарта:</strong> ${passport.graphicsCard}</p>
+
+                <li><strong>Мультимедіа:</strong> ${passport.multimedia}</li>
+                <p><strong>Веб-камера:</strong> ${passport.webcam}</p>
+                <p><strong>Додаткові функції:</strong> ${passport.additionalFeatures}</p>
+
+                <li><strong>Комунікації:</strong> ${passport.communication}</li>
+                <p><strong>Бездротові технології:</strong> ${passport.wireless}</p>
+                <p><strong>Мережевий адаптер:</strong> ${passport.networkAdapter}</p>
+                <li><strong>Порти:</strong></li>
+                <ul>
+                    <p>${passport["port-1"]}</p>
+                    <p>${passport["port-2"]}</p>
+                    <p>${passport["port-3"]}</p>
+                    <p>${passport["port-4"]}</p>
+                    <p>${passport["port-5"]}</p>
+                </ul>
+                <p><strong>Програмне забезпечення:</strong> ${passport.software}</p>
+                <p><strong>Ємність батареї:</strong> ${passport.batteryCapacity}</p>
+                <li><strong>Фізичні характеристики:</strong></li>
+                <ul>
+                <p><strong>Ширина:</strong> ${passport.width}</p>
+                <p><strong>Висота:</strong> ${passport.height}</p>
+                <p><strong>Глибина:</strong> ${passport.depth}</p>
+                <p><strong>Вага:</strong> ${passport.weight}</p>
+                </ul>
+                `;
+            } else {
+                passportDiv.innerHTML = "";
+            }
+        }
+    </script> 
+    <canvas></canvas>
+
+    <script>
+        // Initialising the canvas
+        let canvas = document.querySelector('canvas'),
+            ctx = canvas.getContext('2d');
+        
+        // Setting the width and height of the canvas
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        
+        // Setting up the letters
+        let letters = '一二三四五六七八九十百千萬億京兆吉恆阿無天地玄黃宇宙洪荒盤道德仁義禮智信忠孝悌子孫男女姓名州縣鄉鎮村里門戶家戶籍司空法約契合約盟約獨立主權人民平等自由公義民主憲法自由率家庭學校社會經濟體制私有制資本主義公有制社會主義國家主義民族主義國際主義繼續革命進步研究學習開拓創新發明突破發展進步邁向新的征程時代進步越來越多的人民參與建設祖國建設和平和諧祖國的和警告我們不要忘憶過去開創未來民主法制政治文明明日前進的明日前進的人民須知道民主法制政治的學術理論家也須知道改革開放邁向民主法制政治的道路進步則是歷史必然的發展趨勢決定了我們必將在薄利多銷的市場經濟中轉化經濟結構拓展國內外あいうえおかきくけこさしすせそたちつてとなにぬねのはひふへまみむめもほやゆよらりるれろをんわ0101010101010101010101011234567890-=-=~`~!@#$%^.;[,lpmkonjibhuvgycftxdrzseawq/?"}?">:{<><LPMIOKM&*()|ABCDEFGHIJKLMNOPQRSTUVXYZABCDEFGHIJKLMNOPQRSTUVXYZABCDEFGHIJKLMNOPQRSTUVXYZABCDEFGHIJKLMNOPQRSTUVXYZABCDEFGHIJKLMNOPQRSTUVXYZABCDEFGHIJKLMNOPQRSTUVXYZ';
+        letters = letters.split('');
+        
+        // Setting up the columns
+        let fontSize = 16,
+            columns = canvas.width / fontSize;
+        
+        // Setting up the drops
+        let drops = [];
+        for (let i = 0; i < columns; i++) {
+            drops[i] = 1;
+        }
+        
+        // Setting up the draw function
+        function draw() {
+            ctx.fillStyle = 'rgba(0, 0, 0, .1)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            for (let i = 0; i < drops.length; i++) {
+                let text = letters[Math.floor(Math.random() * letters.length)];
+                ctx.fillStyle = '#4ebe5d'; 
+                ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+                drops[i]++;
+                if (drops[i] * fontSize > canvas.height && Math.random() > .95) {
+                    drops[i] = 0;
+                }
+            }
+        }
+
+        // Loop the animation
+        setInterval(draw, 66);
+    </script> 
+</body>
+</div>
+</html>

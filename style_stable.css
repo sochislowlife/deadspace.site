@@ -1,0 +1,156 @@
+
+/* Стилі для заголовка */
+header {
+    background-color: #000;
+    color: #0f0;
+    padding: 20px;
+    text-align: center;
+ }
+
+nav {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+ }
+
+nav a {
+    color: #0f0;
+    text-decoration: none;
+    padding: 10px 20px;
+    margin: 0 10px;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+nav a:hover {
+    background-color: #0f0;
+    color: #000;
+}
+
+.matrix-text {
+    font-size: 24px;
+    white-space: nowrap;
+    animation: animate 5s linear infinite;
+}
+
+@keyframes animate {
+    from {
+        transform: translateY(-100%);
+    }
+    to {
+        transform: translateY(100%);
+    }
+}
+
+body {
+    font-family: 'Courier New', Courier, monospace;
+    background-color: #000;
+    color: #0f0;
+    overflow: hidden;
+    margin: 0;
+    padding: 0;
+}
+.front-feature-settings {
+/* Use the default settings */
+font-feature-settings: normal;
+
+/* Set values for OpenType feature tags */
+ font-feature-settings: "smcp";
+font-feature-settings: "smcp" on;
+font-feature-settings: "swsh" 2;
+font-feature-settings:
+"smcp",
+"swsh" 2;
+
+/* Global values */
+font-feature-settings: inherit;
+font-feature-settings: initial;
+font-feature-settings: revert;
+font-feature-settings: revert-layer;
+font-feature-settings: unset;
+}
+h2 {
+    color: #bdc5be;
+}
+
+p {
+    color: #bdc5be;
+}
+
+.container {
+position: fixed;
+top: 50%;
+left: 50%;
+transform: translate(-50%, -50%);
+background-color: #000;
+padding: 20px;
+border-radius: 10px;
+max-width: 20%;
+}
+
+@media screen and (max-width: 768px) {
+.container {
+    max-width: 90%;
+}
+}
+.passport {
+border: 1px solid #4ebe5d;
+padding: 20px;
+margin-top: 20px;
+}
+
+* {margin: 0; padding: 0}
+body {background: #000; text-decoration-color: #4ebe5d;}
+canvas {display: block;}
+
+.passport p {
+margin: 5px 0;
+}
+.button {
+  background-color: #4ebe5d;
+  border: none;
+  color: #4ebe5d;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.table-container {
+  margin-top: 20px;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  border: 1px solid #4ebe5d;
+}
+
+.th, .td {
+  padding: 12px 15px;
+  text-align: left;
+  border-bottom: 1px solid #4ebe5d ;
+}
+
+.th {
+  background-color: #4ebe5d;
+}
+
+.td p {
+  margin: 8px 0;
+}
+
+.left-container, .right-container {
+    width: 20%;
+    background-color: #000;
+    color: #4ebe5d;
+}
+
+.right-container {
+    order: 1; /* Змінюємо порядок для правого контейнера */
+}
+

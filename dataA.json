@@ -1,0 +1,48 @@
+{
+  "display": "",
+  "diagonal": "15.6",
+  "resolution": "1920x1080 (FullHD)",
+  "surface": "матова",
+  "matrixType": "IPS",
+  "refreshRate": "60Hz",
+
+  "processor": "",
+  "generationAMD": "AMD Zen 3 (4-е покоління)",
+  "generationINTEL": "Intel Core i3-12XXXX",
+  "modelAMD": "AMD Ryzen 5 5625U (2.3 - 4.3 GHz)",
+  "modelIntel": "Intel Core 12g (3.3-4.4 ГГц)",
+  "cores": 6,
+
+  "ram": "",
+  "type": "DDR4",
+  "slots": 2,
+  "size": "8 / 16 ГБ",
+
+  "storage": "",
+  "driveType": "SSD",
+  "capacity": "256 / 512 ГБ",
+  "opticalDrive": "No ODD",
+
+  "graphicsCard": "AMD Radeon Graphics",
+
+  "multimedia": "",
+  "webcam": "WEB-Camera",
+  "additionalFeatures": "стереодинаміки, вбудований мікрофон",
+
+  "communication": "",
+  "wireless": "Bluetooth, Wi-Fi ghz",
+  "networkAdapter": "Gigabit Ethernet",
+  "port-1": "2 х USB 3.2",
+  "port-2": "USB 3.2 Type-C",
+  "port-3": "LAN (RJ-45)",
+  "port-4": "HDMI",
+  "port-5": "Комбінований аудіороз'єм",
+  "software": "Операційна система DOS",
+  "batteryCapacity": "3 cell",
+
+  "physicalCharacteristics": "",
+  "width": "358 мм",
+  "height": "19.9 мм",
+  "depth": "242 мм",
+  "weight": "1.74 кг"
+}

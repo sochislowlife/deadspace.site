@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IP Ping Status</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f0f0f0;
+  }
+
+  .container {
+    max-width: 800px;
+    width: 100%;
+    padding: 20px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+    border-radius: 5px;
+  }
+
+  h2 {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+
+  table {
+    border-collapse: collapse;
+    width: 100%;
+    margin-bottom: 20px;
+  }
+
+  th, td {
+    border: 1px solid #ddd;
+    padding: 12px;
+    text-align: left;
+  }
+
+  th {
+    background-color: #f2f2f2;
+  }
+
+  .status-online {
+    color: green;
+  }
+
+  .status-offline {
+    color: red;
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+  <h2>IP Ping Status</h2>
+
+  <table id="ipStatusTable">
+    <tr>
+      <th>IP Address</th>
+      <th>Status</th>
+    </tr>
+  </table>
+</div>
+
+<script>
+  // List of IP addresses to ping
+  const ipAddresses = ["192.168.1.1", "8.8.8.8", "10.0.0.1"];
+
+  // List of private IP addresses in the domain ad.autonovad.ua
+  const privateIpAddresses = ["192.168.25.252", "192.168.1.1"]; // Add private IP addresses here
+
+  // Function to ping IP address
+  async function pingIpAddress(ip) {
+    try {
+      const response = await fetch(`https://api.ipify.org?format=json&${ip}`);
+      return response.ok;
+    } catch (error) {
+      console.error("Error pinging IP:", error);
+      return false;
+    }
+  }
+
+  // Function to ping private IP addresses
+  async function pingPrivateIpAddresses() {
+    const domain = "ad.autonovad.ua";
+    const login = "adminsc";
+    const password = "27011988kaV!";
+    const authHeader = btoa(`${login}:${password}`);
+
+    for (const address of privateIpAddresses) {
+      try {
+        const response = await fetch(`https://${address}.${domain}`, {
+          method: "GET",
+          headers: {
+            Authorization: `Basic ${authHeader}`
+          }
+        });
+        console.log(`${address}.${domain}:`, response.ok);
+        updateTableRow(`${address}.${domain}`, response.ok);
+      } catch (error) {
+        console.error(`Error pinging ${address}.${domain}:`, error);
+        updateTableRow(`${address}.${domain}`, false);
+      }
+    }
+  }
+
+  // Function to update table row with ping status
+  function updateTableRow(ip, status) {
+    const table = document.getElementById("ipStatusTable");
+    const row = table.insertRow(-1);
+    const ipAddressCell = row.insertCell(0);
+    const statusCell = row.insertCell(1);
+    ipAddressCell.innerHTML = ip;
+    statusCell.innerHTML = status ? "Online" : "Offline";
+    statusCell.className = status ? "status-online" : "status-offline";
+  }
+
+  // Function to update table with ping status
+  async function updateTable() {
+    const table = document.getElementById("ipStatusTable");
+
+    // Remove existing rows except header
+    for (let i = table.rows.length - 1; i > 0; i--) {
+      table.deleteRow(i);
+    }
+
+    // Add new rows with updated status for regular IP addresses
+    for (const ip of ipAddresses) {
+      const status = await pingIpAddress(ip);
+      updateTableRow(ip, status);
+    }
+
+    // Ping private IP addresses
+    await pingPrivateIpAddresses();
+  }
+
+  // Update table initially and every 20 seconds
+  updateTable();
+  setInterval(updateTable, 20000);
+</script>
+
+</body>
+</html>
