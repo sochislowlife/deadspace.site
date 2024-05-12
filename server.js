@@ -38,23 +38,44 @@ async function pingAllHosts(ipAddresses) {
 }
 
 // Функція для оновлення статусу в таблиці HTML
-function updateTable(res, results) {
-    res.writeHead(200, { 'Content-Type': 'text/html; charset=UTF-8' }); // Встановлюємо кодування UTF-8
-    res.write('<html><head><title>Принтери</title><meta charset="UTF-8"></head><body>');
-    res.write('<h1>Статус принтерів</h1>');
-    res.write('<table border="1"><tr><th>IP-адреса</th><th>Статус</th></tr>');
+function updateTable(results) {
+    const htmlContent = `
+        <!DOCTYPE html>
+        <html lang="en">
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>Принтери</title>
+            <style>
+                /* Стилі для таблиці можна також вставити тут */
+            </style>
+        </head>
+        <body>
+            <h1>Статус принтерів</h1>
+            <table border="1">
+                <tr>
+                    <th>IP-адреса</th>
+                    <th>Статус</th>
+                </tr>
+                ${results.map(({ ip, status }) => `
+                    <tr>
+                        <td>${ip}</td>
+                        <td>${status ? "Online" : "Offline"}</td>
+                    </tr>
+                `).join('')}
+            </table>
+        </body>
+        </html>
+    `;
 
-    // Додаємо рядки таблиці з результатами пінгування
-    results.forEach(({ ip, status }) => {
-        console.log(`IP: ${ip}, Статус: ${status ? "Online" : "Offline"}`);
-        const lampClass = status ? "lamp-online" : "lamp-offline";
-        const lampIcon = status ? "🟢" : "🔴";
-        const tableRow = `<tr><td><a href="http://${ip}">${ip}</a></td><td><span class="lamp ${lampClass}">${lampIcon}</span>${status ? "Online" : "Offline"}</td></tr>`;
-        res.write(tableRow);
+    // Записати згенерований HTML-контент у файл
+    fs.writeFileSync('printer.html', htmlContent, 'utf8', function(err) {
+        if (err) {
+            console.error('Помилка при записі в файл:', err);
+        } else {
+            console.log('Файл printer.html успішно оновлено.');
+        }
     });
-
-    res.write('</table></body></html>');
-    res.end(); // Завершуємо відправлення відповіді
 }
 
 // Створення веб-сервера
@@ -62,7 +83,9 @@ const server = http.createServer(async function (req, res) {
     try {
         const ipAddresses = readPrintersFile(); // Отримуємо список IP-адрес з файлу
         const results = await pingAllHosts(ipAddresses); // Пінгуємо всі адреси
-        updateTable(res, results); // Оновлюємо таблицю з результатами пінгування
+        updateTable(results); // Оновлюємо таблицю з результатами пінгування
+        res.writeHead(200, { 'Content-Type': 'text/html; charset=UTF-8' });
+        res.end('Файл printer.html успішно оновлено.');
     } catch (error) {
         console.error("Помилка під час пінгування:", error);
         res.writeHead(500, { 'Content-Type': 'text/plain' });
