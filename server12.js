@@ -73,8 +73,8 @@ const server = http.createServer(async function (req, res) {
 });
 
 // Прослуховування порту 3000
-server.listen(3000, '127.0.0.1', function () {
-    console.log('Веб-сервер запущено на http://127.0.0.1:3000/');
+server.listen(3000, 'deadspace.site/table.html', function () {
+    console.log('Веб-сервер запущено на http://deadspace.site/table.html:3000/');
 });
 
 
