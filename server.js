@@ -107,22 +107,14 @@ function writeToHTMLFile(results) {
         </html>
     `;
 
-    // Записати згенерований HTML-контент у файл
-    fs.writeFileSync('ping.html', htmlContent, 'utf8', function(err) {
+    // Записати згенерований Json-контент у файл
+    fs.writeFileSync('ping.json', htmlContent, 'utf8', function(err) {
         if (err) {
             console.error('Помилка при записі в файл:', err);
         } else {
             console.log('Файл ping.html успішно оновлено.');
         }
     });
-}
-
-// Приклад результатів
-const results = [
-    { ip: '192.168.1.1', status: true },
-    { ip: '192.168.1.2', status: false },
-
-];
-
+};
 // Викликати функцію для запису даних у файл
 writeToHTMLFile(results);
