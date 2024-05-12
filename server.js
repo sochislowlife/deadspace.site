@@ -76,6 +76,6 @@ const server = http.createServer(async function (req, res) {
 });
 
 // Прослуховування порту 3000
-server.listen(3000, '46.254.107.11', function () {
-    console.log('Веб-сервер запущено на http://46.254.107.11:3000/');
+server.listen(3000, 'deadspace.site', function () {
+    console.log('Веб-сервер запущено на http://deadspace.site:3000/');
 });
