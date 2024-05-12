@@ -39,44 +39,26 @@ async function pingAllHosts(ipAddresses) {
 
 // Функція для оновлення статусу в таблиці HTML
 function updateTable(results) {
-    const htmlContent = `
-        <!DOCTYPE html>
-        <html lang="en">
-        <head>
-            <meta charset="UTF-8">
-            <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <title>Принтери</title>
-            <style>
-                /* Стилі для таблиці можна також вставити тут */
-            </style>
-        </head>
-        <body>
-            <h1>Статус принтерів</h1>
-            <table border="1">
-                <tr>
-                    <th>IP-адреса</th>
-                    <th>Статус</th>
-                </tr>
-                ${results.map(({ ip, status }) => `
-                    <tr>
-                        <td>${ip}</td>
-                        <td>${status ? "Online" : "Offline"}</td>
-                    </tr>
-                `).join('')}
-            </table>
-        </body>
-        </html>
-    `;
+    let tableContent = '<table border="1"><tr><th>IP-адреса</th><th>Статус</th></tr>';
 
-    // Записати згенерований HTML-контент у файл
-    fs.writeFileSync('printer.html', htmlContent, 'utf8', function(err) {
+    // Додаємо рядки таблиці з результатами пінгування
+    results.forEach(({ ip, status }) => {
+        console.log(`IP: ${ip}, Статус: ${status ? "Online" : "Offline"}`);
+        const lampIcon = status ? "🟢" : "🔴";
+        tableContent += `<tr><td>${ip}</td><td>${lampIcon} ${status ? "Online" : "Offline"}</td></tr>`;
+    });
+
+    tableContent += '</table>';
+
+    // Записати згенерований HTML-контент у файл printer.html
+    fs.writeFileSync('printer.html', tableContent, 'utf8', function(err) {
         if (err) {
             console.error('Помилка при записі в файл:', err);
         } else {
             console.log('Файл printer.html успішно оновлено.');
         }
     });
-}
+};
 
 // Створення веб-сервера
 const server = http.createServer(async function (req, res) {
@@ -84,8 +66,8 @@ const server = http.createServer(async function (req, res) {
         const ipAddresses = readPrintersFile(); // Отримуємо список IP-адрес з файлу
         const results = await pingAllHosts(ipAddresses); // Пінгуємо всі адреси
         updateTable(results); // Оновлюємо таблицю з результатами пінгування
-        res.writeHead(200, { 'Content-Type': 'text/html; charset=UTF-8' });
-        res.end('Файл printer.html успішно оновлено.');
+        res.writeHead(200, { 'Content-Type': 'text/plain' });
+        res.end('Дані оновлено. Перевірте файл printer.html');
     } catch (error) {
         console.error("Помилка під час пінгування:", error);
         res.writeHead(500, { 'Content-Type': 'text/plain' });
@@ -94,6 +76,6 @@ const server = http.createServer(async function (req, res) {
 });
 
 // Прослуховування порту 3000
-server.listen(3000, 'localhost', function () {
-    console.log('Веб-сервер запущено на http://localhost:3000/');
+server.listen(3000, '46.254.107.11', function () {
+    console.log('Веб-сервер запущено на http://46.254.107.11:3000/');
 });
