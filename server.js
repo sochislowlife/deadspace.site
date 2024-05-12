@@ -5,7 +5,7 @@ const ping = require('net-ping');
 // Функція для читання файлу зі списком IP-адрес
 function readPrintersFile() {
     try {
-        const printers = JSON.parse(fs.readFileSync('printers.json'));
+        const printers = JSON.parse(fs.readFileSync('./data/printers.json'));
         return printers;
     } catch (error) {
         console.error("Помилка читання файлу зі списком принтерів:", error);
